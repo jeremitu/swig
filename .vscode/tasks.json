@@ -1,0 +1,45 @@
+{
+        // See https://go.microsoft.com/fwlink/?LinkId=733558
+        // for the documentation about the tasks.json format
+        "version": "2.0.0",
+        "tasks": [
+                {
+                        "type": "shell",
+                        "label": "check-python-test-suite",
+                        "command": "make",
+                        "args": [
+                                //"check-python-test-suite",
+                                "partialcheck-python-test-suite",
+                                // stop at the first err
+                                "FLAGS=-S",
+                        ],
+                        "options": {
+                                "cwd": "${workspaceFolder}",
+                        },
+                        "problemMatcher": [
+                                "$gcc"
+                        ],
+                        "group": {
+                                "kind": "build",
+                                "isDefault": true
+                        },
+                },
+                {
+                        "type": "shell",
+                        "label": "runswig",
+                        "command": "../../../swig -python -c++ -outcurrentdir -I../../../Examples/test-suite -o cpp11_integer_literals_wrap.cxx ./../cpp11_integer_literals.i",
+                        //"command": "echo $SWIG_LIB",
+                        "options": {
+                                "cwd": "${workspaceFolder}/Examples/test-suite/python",
+                                "env": {"SWIG_LIB": "../../../Lib", }
+                        },
+                        "problemMatcher": [
+                                "$gcc"
+                        ],
+                        "group": {
+                                "kind": "build",
+                                "isDefault": true,
+                        },
+                },
+        ],
+}
